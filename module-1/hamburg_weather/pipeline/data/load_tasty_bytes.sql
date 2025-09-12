@@ -21,7 +21,6 @@ CREATE OR ALTER SCHEMA {{env}}_tasty_bytes.raw_customer;
 -- create harmonized schema
 CREATE OR ALTER SCHEMA {{env}}_tasty_bytes.harmonized;
 
-
 -- create analytics schema
 CREATE OR ALTER SCHEMA {{env}}_tasty_bytes.analytics;
 
