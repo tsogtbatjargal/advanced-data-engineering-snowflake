@@ -62,6 +62,10 @@ jobs:
             exit 0
           fi
           for file in $CHANGED_FILES; do
+            if [ ! -f "$file" ]; then
+              echo "File $file does not exist in working directory. Skipping."
+              continue
+            fi
             echo "Deploying changed SQL: $file"
             # If deploying a view, make sure all functions are deployed first
             if [[ $file == *"/objects/views/"* ]]; then
