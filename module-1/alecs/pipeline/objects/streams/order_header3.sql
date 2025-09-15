@@ -1,0 +1,1 @@
+CREATE OR REPLACE STREAM {{env}}_alecs_bytes.raw_pos.order_header_stream3 ON TABLE {{env}}_alecs_bytes.raw_pos.order_header;
