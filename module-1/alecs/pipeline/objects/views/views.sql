@@ -75,15 +75,3 @@ WHERE 1=1
     AND dw.city_name = 'Hamburg'
 GROUP BY dw.country_desc, dw.city_name, dw.date_valid_std
 ORDER BY dw.date_valid_std DESC;
-
-
-CREATE OR REPLACE VIEW {{env}}_alecs_bytes.harmonized.test
-    AS
-SELECT
-    *
-FROM harmonized.daily_weather_v dw
-WHERE 1=1
-    AND dw.country_desc IN ('Germany')
-    AND dw.city_name = 'Hamburg'
-GROUP BY dw.country_desc, dw.city_name, dw.date_valid_std
-ORDER BY dw.date_valid_std DESC;
