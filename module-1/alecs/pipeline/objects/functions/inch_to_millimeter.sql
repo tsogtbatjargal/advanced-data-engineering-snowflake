@@ -5,3 +5,5 @@ CREATE OR ALTER FUNCTION {{env}}_alecs_bytes.analytics.inch_to_millimeter(inch N
     inch * 25.4
   $$
 ;
+
+--- Function to convert inches to millimeters
