@@ -341,5 +341,4 @@ FROM @{{env}}_tasty_bytes.public.s3load/raw_pos/subset_order_detail/;
 
 
 -- create test schema
--- CREATE OR ALTER SCHEMA {{env}}_tasty_bytes.test_TB;
-DROP SCHEMA IF EXISTS {{env}}_tasty_bytes.test_TB CASCADE;
+CREATE OR ALTER SCHEMA {{env}}_tasty_bytes.test_TB;
