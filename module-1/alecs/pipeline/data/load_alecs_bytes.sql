@@ -26,7 +26,7 @@ CREATE OR ALTER SCHEMA {{env}}_alecs_bytes.analytics;
 
 
 -- create warehouse for ingestion
-CREATE OR REPLACE WAREHOUSE demo_build_wh
+CREATE OR REPLACE WAREHOUSE demo_build_wh2
    WAREHOUSE_SIZE = 'xlarge'
    WAREHOUSE_TYPE = 'standard'
    AUTO_SUSPEND = 60
