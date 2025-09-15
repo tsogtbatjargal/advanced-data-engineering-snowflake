@@ -24,7 +24,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
+        with:
+          fetch-depth: 0
+          
       - name: Set environment
         id: set_env
         run: |
@@ -47,11 +49,32 @@ jobs:
       - name: Fetch latest changes to Snowflake
         run: snow git fetch course_repo.public.advanced_data_engineering_snowflake
 
-      - name: Deploy templates to data environment
+      - name: Deploy only changed SQL scripts (with function dependencies)
         run: |
-          for project in alecs hamburg_weather; do
-            echo "Deploying project: $project"
-            snow git execute @course_repo.public.advanced_data_engineering_snowflake/branches/main/module-1/$project/pipeline/data/ \
+          if [ -n "${{ github.event.before }}" ]; then
+            RANGE="${{ github.event.before }}..${{ github.sha }}"
+          else
+            RANGE="HEAD~1..HEAD"
+          fi
+          CHANGED_FILES=$(git diff --name-only $RANGE | grep '\.sql$' | grep '^module-1/' || true)
+          if [ -z "$CHANGED_FILES" ]; then
+            echo "No SQL files changed. Skipping deployment."
+            exit 0
+          fi
+          for file in $CHANGED_FILES; do
+            echo "Deploying changed SQL: $file"
+            # If deploying a view, make sure all functions are deployed first
+            if [[ $file == *"/objects/views/"* ]]; then
+              project_dir=$(echo "$file" | cut -d'/' -f1-2)
+              for func in $project_dir/pipeline/objects/functions/*.sql; do
+                echo "Deploying function dependency: $func"
+                snow git execute @course_repo.public.advanced_data_engineering_snowflake/branches/main/$func \
+                  -D "env='${{ env.DEPLOY_ENV }}'" \
+                  --database=COURSE_REPO \
+                  --schema=PUBLIC
+              done
+            fi
+            snow git execute @course_repo.public.advanced_data_engineering_snowflake/branches/main/$file \
               -D "env='${{ env.DEPLOY_ENV }}'" \
               --database=COURSE_REPO \
               --schema=PUBLIC
