@@ -49,12 +49,10 @@ jobs:
 
       - name: Deploy templates to data environment
         run: |
-          for project in module-1/*; do
-            if [ -d "$project" ]; then
-              echo "Deploying project: $project"
-              snow git execute $project/pipeline/data/ \
+          for project in alecs hamburg_weather; do
+            echo "Deploying project: $project"
+            snow git execute @course_repo.public.advanced_data_engineering_snowflake/branches/main/module-1/$project/pipeline/data/ \
               -D "env='${{ env.DEPLOY_ENV }}'" \
               --database=COURSE_REPO \
               --schema=PUBLIC
-            fi
           done
