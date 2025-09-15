@@ -52,7 +52,7 @@ jobs:
           for project in module-1/*; do
             if [ -d "$project" ]; then
               echo "Deploying project: $project"
-              snow git execute @$project/pipeline/data/ \
+              snow git execute $project/pipeline/data/ \
               -D "env='${{ env.DEPLOY_ENV }}'" \
               --database=COURSE_REPO \
               --schema=PUBLIC
