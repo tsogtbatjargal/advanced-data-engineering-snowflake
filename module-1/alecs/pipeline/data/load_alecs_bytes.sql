@@ -343,7 +343,7 @@ FROM @{{env}}_alecs_bytes.public.s3load/raw_pos/subset_order_detail/;
 -- create test schema
 -- CREATE OR ALTER SCHEMA {{env}}_alecs_bytes.test_TB;
 -- Recover the dropped schema
-UNDROP SCHEMA {{env}}_alecs_bytes.test_TB;
+-- UNDROP SCHEMA {{env}}_alecs_bytes.test_TB;
 
--- Verify the schema and its tables
-SHOW TABLES IN SCHEMA {{env}}_alecs_bytes.test_TB;
+-- -- Verify the schema and its tables
+-- SHOW TABLES IN SCHEMA {{env}}_alecs_bytes.test_TB;
