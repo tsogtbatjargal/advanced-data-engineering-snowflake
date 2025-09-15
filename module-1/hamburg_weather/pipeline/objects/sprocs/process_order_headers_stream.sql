@@ -41,3 +41,5 @@ def process_order_headers_stream(session: Session) -> float:
     # Return a message indicating the operation was successful
     return "Daily sales for Hamburg, Germany have been successfully written to raw_pos.daily_sales_hamburg_t"
 $$;
+
+-- Call the stored procedure to process the stream and write daily sales to the target table
