@@ -10,6 +10,8 @@ on:
     branches:
       - staging
       - main
+    paths:
+      - 'module-1/**'
 
 jobs:
   deploy_data_environment:
